@@ -929,7 +929,7 @@ def open_uf_datatree(
 
         sweeps = [f"sweep_{i}" for i in range(act_sweeps)]
 
-    sweep_dict = open_sweeps_as_dict(
+    sweep_dict, stores = open_sweeps_as_dict(
         filename_or_obj=filename_or_obj,
         mask_and_scale=mask_and_scale,
         decode_times=decode_times,
@@ -964,7 +964,7 @@ def open_uf_datatree(
         for sweep_path in sweep_dict.keys()
     }
     dtree = dtree | sweep_dict
-    return xr.DataTree.from_dict(dtree)
+    return xr.DataTree.from_dict(dtree), stores
 
 
 def open_sweeps_as_dict(
@@ -1038,4 +1038,4 @@ def open_sweeps_as_dict(
                 )
 
             groups_dict[path_group] = group_ds
-    return groups_dict
+    return groups_dict, stores
